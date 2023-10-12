@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainLayout">
+
+    <LinearLayout
+        style="@style/BasicStyle"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/eventItemList"
+            style="@style/ListItem"/>
+    </LinearLayout>
+
+</LinearLayout>

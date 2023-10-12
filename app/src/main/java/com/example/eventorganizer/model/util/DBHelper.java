@@ -144,6 +144,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     @SuppressLint("Range")
     public List<Event> getAllEvents() {
+
+       /* Category c=new Category("category1");
+        insertCategory(c);
+        Event e=new Event("event","description","time","location",1);
+        insertEvent(e);
+*/
         List<Event> events = new LinkedList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME_EVENT, null);

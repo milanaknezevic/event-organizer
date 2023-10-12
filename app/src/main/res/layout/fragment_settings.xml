@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EventFragment">
+    tools:context=".ui.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="jedan event fragment" />
+        android:text="hello settings" />
 
 </FrameLayout>
