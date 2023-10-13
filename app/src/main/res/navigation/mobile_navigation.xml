@@ -56,4 +56,7 @@
             android:id="@+id/action_eventFragment_to_nav_events"
             app:destination="@id/nav_events" />
     </fragment>
+
+
+
 </navigation>

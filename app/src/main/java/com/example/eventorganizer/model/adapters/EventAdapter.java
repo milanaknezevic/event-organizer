@@ -16,16 +16,15 @@ import java.util.List;
 
 public class EventAdapter extends BaseAdapter {
 
-    private List<Event> events=new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
     LayoutInflater layoutInflater;
     Fragment fragment;
 
-
-    public EventAdapter(List<Event> events,Fragment fragment)
-    {
-        this.events=events;
-        this.fragment=fragment;
+    public EventAdapter(List<Event> events, Fragment fragment) {
+        this.events = events;
+        this.fragment = fragment;
     }
+
     @Override
     public int getCount() {
         return events.size();
@@ -40,21 +39,36 @@ public class EventAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
+    public void setData(List<Event> events) {
+        this.events.clear();
+        this.events.addAll(events);
+    }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(layoutInflater==null)
-        {
-            layoutInflater=fragment.getLayoutInflater();
+        if (layoutInflater == null) {
+            layoutInflater = fragment.getLayoutInflater();
         }
 
-        if(view==null)
-        {
-           view=layoutInflater.inflate(R.layout.list_item_element,null);
+        if (view == null) {
+            view = layoutInflater.inflate(R.layout.list_item_element, null);
         }
 
-       TextView name = view.findViewById(R.id.eventItemList);
-       name.setText(events.get(i).getName());
+        Event event = events.get(i);
+
+
+        TextView title = view.findViewById(R.id.event_name);
+        TextView datetime = view.findViewById(R.id.event_time);
+        TextView location = view.findViewById(R.id.event_location);
+       // TextView category = view.findViewById(R.id.event_category);
+
+
+        title.setText(event.getName());
+        datetime.setText(event.getTime());
+        location.setText(event.getLocation());
+
+       //category.setText(String.valueOf(event.getCategory_id()));
+
         return view;
     }
 }

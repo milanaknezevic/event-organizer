@@ -145,11 +145,11 @@ public class DBHelper extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<Event> getAllEvents() {
 
-       /* Category c=new Category("category1");
+       Category c=new Category("category1");
         insertCategory(c);
-        Event e=new Event("event","description","time","location",1);
+        Event e=new Event("event3","description1","time","location",1);
         insertEvent(e);
-*/
+
         List<Event> events = new LinkedList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME_EVENT, null);
@@ -232,4 +232,23 @@ public class DBHelper extends SQLiteOpenHelper {
         res.close();
         return categories;
     }
+
+    @SuppressLint("Range")
+    public Category getCategoryById(Integer id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME_CATEGORY + " where " + CATEGORY_ID + "=" + id, null);
+        res.moveToFirst();
+        Category category = null;
+
+        if (res != null && res.moveToFirst()) {
+            category = new Category();
+            category.setId(res.getInt(res.getColumnIndex(CATEGORY_ID)));
+            category.setName(res.getString(res.getColumnIndex(CATEGORY_NAME)));
+
+        }
+        res.close();
+        return  category;
+    }
+
 }
