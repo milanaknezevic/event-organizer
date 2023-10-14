@@ -1,9 +1,10 @@
 package com.example.eventorganizer.model.entities;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Event {
+public class Event implements Serializable {
     private Integer id;
     private String name;
     private String description;

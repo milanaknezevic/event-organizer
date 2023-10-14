@@ -142,14 +142,29 @@ public class DBHelper extends SQLiteOpenHelper {
         int rowsDeleted = db.delete(TABLE_NAME_EVENT, ID_COL + " = " + eventId, null);
         db.close();
     }
+    public void deleteCategories() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABLE_NAME_CATEGORY, null, null);
+        db.close();
+    }
+    public void deleteEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABLE_NAME_EVENT, null, null);
+        db.close();
+    }
+
     @SuppressLint("Range")
     public List<Event> getAllEvents() {
 
-       Category c=new Category("category1");
+      /* Category c=new Category("milana");
         insertCategory(c);
-        Event e=new Event("event3","description1","time","location",1);
+        Category c1=new Category("kategorija");
+        insertCategory(c1);
+      Event e=new Event("event1","description1","time","location",c.getId());
         insertEvent(e);
-
+        Event e1=new Event("event2","description1","time","location",c1.getId());
+        insertEvent(e1);
+*/
         List<Event> events = new LinkedList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME_EVENT, null);

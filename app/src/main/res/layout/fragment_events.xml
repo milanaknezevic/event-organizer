@@ -31,13 +31,13 @@
 
     </ListView>
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom_navigation"
+        android:id="@+id/addNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddActivity"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -45,7 +45,7 @@
         android:src="@drawable/car_ui_icon_add"
         android:tint="@android:color/white"
         android:backgroundTint="@color/desire"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@id/addNavigation"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

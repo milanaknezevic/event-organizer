@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbHelper=new DBHelper(this);
-
+       /* dbHelper.deleteEvents();
+        dbHelper.deleteCategories();
+*/
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

@@ -15,6 +15,7 @@ import com.example.eventorganizer.MainActivity;
 import com.example.eventorganizer.R;
 import com.example.eventorganizer.model.adapters.EventAdapter;
 import com.example.eventorganizer.model.entities.Event;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
     ListView listView;
     EventAdapter eventAdapter;
     SearchView searchView;
+    FloatingActionButton addEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,12 +38,19 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
 
         root = inflater.inflate(R.layout.fragment_events, container, false);
         listView = root.findViewById(R.id.listEvents);
-        System.out.println("nasla listu");
+        addEvent=root.findViewById(R.id.addButton);
         searchView = root.findViewById(R.id.searchView);
-        System.out.println("nasla search");
         events = MainActivity.dbHelper.getAllEvents();
         eventAdapter = new EventAdapter(events, this);
         listView.setAdapter(eventAdapter);
+
+
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(root).navigate(R.id.addEventFragment);
+            }
+        });
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -52,13 +61,11 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
 
             @Override
             public boolean onQueryTextChange(String s) {
-               List<Event> e= MainActivity.dbHelper.searchEventsByName(s);
-               eventAdapter.setData(e);
+                List<Event> e = MainActivity.dbHelper.searchEventsByName(s);
+                eventAdapter.setData(e);
                 return true;
             }
         });
-
-
         listView.setOnItemClickListener(this);
 
 

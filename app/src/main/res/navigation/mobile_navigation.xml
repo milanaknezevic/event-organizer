@@ -56,7 +56,11 @@
             android:id="@+id/action_eventFragment_to_nav_events"
             app:destination="@id/nav_events" />
     </fragment>
-
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.example.eventorganizer.ui.AddEventFragment"
+        android:label="@string/add_event"
+        tools:layout="@layout/fragment_add_event" />
 
 
 </navigation>
