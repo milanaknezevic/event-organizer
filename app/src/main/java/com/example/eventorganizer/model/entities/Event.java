@@ -1,5 +1,7 @@
 package com.example.eventorganizer.model.entities;
 
+import com.example.eventorganizer.enums.Category;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -10,20 +12,20 @@ public class Event implements Serializable {
     private String description;
     private String location;
     private String time;
-    private Integer category_id;
+    private Category category;
     private List<Image> images;
 
     public Event()
     {
         super();
     }
-    public Event(String name, String description,String time, String location,Integer category_id)
+    public Event(String name, String description,String time, String location,Category category)
     {//sta sa slikama?
        this.name=name;
        this.description=description;
        this.time=time;
        this.location=location;
-       this.category_id=category_id;
+       this.category=category;
     }
 
     public Integer getId() {
@@ -66,12 +68,12 @@ public class Event implements Serializable {
         this.time = time;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public List<Image> getImages() {
@@ -87,12 +89,12 @@ public class Event implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(description, event.description) && Objects.equals(location, event.location) && Objects.equals(time, event.time) && Objects.equals(category_id, event.category_id) && Objects.equals(images, event.images);
+        return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(description, event.description) && Objects.equals(location, event.location) && Objects.equals(time, event.time) && Objects.equals(category, event.category) && Objects.equals(images, event.images);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, location, time, category_id, images);
+        return Objects.hash(id, name, description, location, time, category, images);
     }
 
     @Override
@@ -103,7 +105,7 @@ public class Event implements Serializable {
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", time='" + time + '\'' +
-                ", category_id=" + category_id +
+                ", category=" + category +
                 ", images=" + images +
                 '}';
     }

@@ -21,36 +21,80 @@
         android:maxLines="2"
         android:minHeight="48dp" />
 
-
-    <EditText
-        android:id="@+id/location"
+    <LinearLayout
+        android:id="@+id/dateTimeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/location"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/pickDateEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableStart="@drawable/baseline_date_range_24"
+            android:drawablePadding="8dp"
+            android:focusable="false"
+            android:hint="Date"
+            android:inputType="none"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/pickTimeEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableStart="@drawable/time"
+            android:drawablePadding="8dp"
+            android:focusable="false"
+            android:hint="Time"
+            android:inputType="none"
+            android:minHeight="48dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/pickLocationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/round_edit_location_alt_24"
+        android:drawablePadding="8dp"
+        android:hint="Lokacija"
         android:minHeight="48dp" />
 
-
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/time"
-        android:minHeight="48dp"
-        android:inputType="time" />
     <Spinner
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Spinner"
-        android:minHeight="48dp"
-        />
+        android:minHeight="48dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/desire"
+        android:contentDescription="+"
+        android:src="@drawable/baseline_add_a_photo_24"
+        android:tint="@android:color/white" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+
 
     <Button
         android:id="@+id/Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Submit" />
-
-
+        android:layout_gravity="center_horizontal"
+        android:text="Submit" />
 </LinearLayout>

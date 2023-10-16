@@ -39,6 +39,7 @@ public class EventAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
+
     public void setData(List<Event> events) {
         this.events.clear();
         this.events.addAll(events);
@@ -60,14 +61,14 @@ public class EventAdapter extends BaseAdapter {
         TextView title = view.findViewById(R.id.event_name);
         TextView datetime = view.findViewById(R.id.event_time);
         TextView location = view.findViewById(R.id.event_location);
-       // TextView category = view.findViewById(R.id.event_category);
+        TextView category = view.findViewById(R.id.event_category);
 
 
         title.setText(event.getName());
         datetime.setText(event.getTime());
         location.setText(event.getLocation());
 
-       //category.setText(String.valueOf(event.getCategory_id()));
+        category.setText(String.valueOf(event.getCategory()));
 
         return view;
     }

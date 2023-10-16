@@ -48,6 +48,20 @@
                 android:layout_weight="1"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary" />
+
+            <TextView
+                android:id="@+id/event_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/desire"
+                android:background="@drawable/rounded_border_background"
+                android:padding="8dp"
+                android:gravity="center"
+                android:text="Your Text"
+                />
+
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

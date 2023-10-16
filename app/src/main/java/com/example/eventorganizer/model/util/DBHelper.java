@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.eventorganizer.model.entities.Category;
+import com.example.eventorganizer.enums.Category;
 import com.example.eventorganizer.model.entities.Event;
 import com.example.eventorganizer.model.entities.Image;
 
@@ -23,9 +23,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DESCRIPTION = "description";
     private static final String LOCATION = "location";
     private static final String TIME = "time";
-    private static final String CATEGORY_ID = "category_id";
+    private static final String CATEGORY = "category";
 
-    private static final String TABLE_NAME_CATEGORY = "category";
     private static final String CATEGORY_NAME = "name";
     private static final String TABLE_NAME_IMAGE = "image";
     private static final String EVENT_ID = "event_id";
@@ -38,9 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
             DESCRIPTION + " TEXT," +
             LOCATION + " TEXT," +
             TIME + " REAL DEFAULT 0," +
-            CATEGORY_ID + " INTEGER," +
-            " FOREIGN KEY (" + CATEGORY_ID + ") REFERENCES " + TABLE_NAME_CATEGORY + "(" + ID_COL + ")" +
-            ")";
+            CATEGORY + " TEXT" + ")";
 
     private static final String create_image = "CREATE TABLE " + TABLE_NAME_IMAGE +
             " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,12 +46,6 @@ public class DBHelper extends SQLiteOpenHelper {
             " FOREIGN KEY (" + EVENT_ID + ") REFERENCES " + TABLE_NAME_EVENT + "(" + ID_COL + ")" +
             " ON DELETE CASCADE" +
             ")";
-
-
-    private static final String create_category = "CREATE TABLE " + TABLE_NAME_CATEGORY +
-            " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CATEGORY_NAME + " TEXT)";
-
     private static final String SQL_DELETE_ENTRY_EVENT =
             "DROP TABLE IF EXISTS " + TABLE_NAME_EVENT;
 
@@ -67,10 +58,20 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(create_event);
-        sqLiteDatabase.execSQL(create_category);
         sqLiteDatabase.execSQL(create_image);
 
 
+    }
+    public void deleteItems()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String delete = "DROP TABLE IF EXISTS "+TABLE_NAME_IMAGE;
+        db.execSQL(delete);
+
+
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        String delete2 = "DROP TABLE IF EXISTS "+TABLE_NAME_EVENT;
+        db.execSQL(delete2);
     }
 
     //azuriranje seme baze podataka prosljedjuje se stara i nova verzija
@@ -119,7 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(DESCRIPTION, event.getDescription());
         values.put(TIME, event.getTime());
         values.put(LOCATION, event.getLocation());
-        values.put(CATEGORY_ID, event.getCategory_id());
+        values.put(CATEGORY, event.getCategory().toString());
         long eventId = db.insert(TABLE_NAME_EVENT, null, values);
         event.setId((int) eventId);
         db.close();
@@ -132,7 +133,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(DESCRIPTION, event.getDescription());
         values.put(TIME, event.getTime());
         values.put(LOCATION, event.getLocation());
-        values.put(CATEGORY_ID, event.getCategory_id());
+        values.put(CATEGORY, event.getCategory().toString());
         int rowsUpdated = db.update(TABLE_NAME_EVENT, values, ID_COL + " = " + event.getId(), null);
         db.close();
     }
@@ -140,11 +141,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteEvent(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete(TABLE_NAME_EVENT, ID_COL + " = " + eventId, null);
-        db.close();
-    }
-    public void deleteCategories() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int rowsDeleted = db.delete(TABLE_NAME_CATEGORY, null, null);
         db.close();
     }
     public void deleteEvents() {
@@ -156,13 +152,10 @@ public class DBHelper extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<Event> getAllEvents() {
 
-      /* Category c=new Category("milana");
-        insertCategory(c);
-        Category c1=new Category("kategorija");
-        insertCategory(c1);
-      Event e=new Event("event1","description1","time","location",c.getId());
+
+      /*Event e=new Event("event1","description1","time","location",Category.LEISURE);
         insertEvent(e);
-        Event e1=new Event("event2","description1","time","location",c1.getId());
+        Event e1=new Event("event2","description1","time","location",Category.TRAVEL);
         insertEvent(e1);
 */
         List<Event> events = new LinkedList<>();
@@ -176,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
             eventTmp.setDescription(res.getString(res.getColumnIndex(DESCRIPTION)));
             eventTmp.setTime(res.getString(res.getColumnIndex(TIME)));
             eventTmp.setLocation(res.getString(res.getColumnIndex(LOCATION)));
-            eventTmp.setCategory_id(res.getInt(res.getColumnIndex(CATEGORY_ID)));
+            eventTmp.setCategory(Category.valueOf(res.getString(res.getColumnIndex(CATEGORY))));
 
             List<Image> images = getAllImagesForEvent(eventTmp.getId());
             eventTmp.setImages(images);
@@ -204,7 +197,8 @@ public class DBHelper extends SQLiteOpenHelper {
             eventTmp.setDescription(res.getString(res.getColumnIndex(DESCRIPTION)));
             eventTmp.setTime(res.getString(res.getColumnIndex(TIME)));
             eventTmp.setLocation(res.getString(res.getColumnIndex(LOCATION)));
-            eventTmp.setCategory_id(res.getInt(res.getColumnIndex(CATEGORY_ID)));
+            eventTmp.setCategory(Category.valueOf(res.getString(res.getColumnIndex(CATEGORY))));
+
 
             List<Image> images = getAllImagesForEvent(eventTmp.getId());
             eventTmp.setImages(images);
@@ -215,55 +209,5 @@ public class DBHelper extends SQLiteOpenHelper {
         return events;
     }
 
-    //category insert,delete
-    public void insertCategory(Category category) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(CATEGORY_NAME, category.getName());
-        long categoryId = db.insert(TABLE_NAME_CATEGORY, null, values);
-        category.setId((int) categoryId);
-        db.close();
-    }
-    public void deleteCategory(int categoryId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int rowsDeleted = db.delete(TABLE_NAME_CATEGORY, ID_COL + " = " + categoryId, null);
-        db.close();
-    }
-
-    @SuppressLint("Range")
-    public List<Category> getAllCategories() {
-        List<Category> categories = new LinkedList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME_CATEGORY, null);
-        res.moveToFirst();
-        while (!res.isAfterLast()) {
-            Category categoryTmp = new Category();
-            categoryTmp.setId(res.getInt(res.getColumnIndex(ID_COL)));
-            categoryTmp.setName(res.getString(res.getColumnIndex(CATEGORY_NAME)));
-
-            categories.add(categoryTmp);
-            res.moveToNext();
-        }
-        res.close();
-        return categories;
-    }
-
-    @SuppressLint("Range")
-    public Category getCategoryById(Integer id) {
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME_CATEGORY + " where " + CATEGORY_ID + "=" + id, null);
-        res.moveToFirst();
-        Category category = null;
-
-        if (res != null && res.moveToFirst()) {
-            category = new Category();
-            category.setId(res.getInt(res.getColumnIndex(CATEGORY_ID)));
-            category.setName(res.getString(res.getColumnIndex(CATEGORY_NAME)));
-
-        }
-        res.close();
-        return  category;
-    }
 
 }

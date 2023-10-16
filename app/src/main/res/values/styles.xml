@@ -26,6 +26,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>
     </style>
+
     <style name="MainLayout">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
@@ -51,6 +52,7 @@
         <item name="android:layout_marginTop">@dimen/topMargin</item>
         <item name="android:padding">@dimen/fab_margin</item>
     </style>
+
     <style name="PhotoCapital">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">200dp</item>
@@ -87,6 +89,7 @@
         <item name="android:padding">@dimen/fab_margin</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+
     <style name="Title" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -147,6 +150,30 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:padding">@dimen/fab_margin</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorControlActivated">@color/desire</item>
+        <item name="android:textColor">@color/desire</item>
+        <item name="android:background">@color/gray</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColorSecondaryInverse">@color/desire</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:buttonBarStyle">@color/black</item>
+    </style>
+
+
+
+
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorControlActivated">@color/desire</item>
+        <item name="android:backgroundTint">@color/gray</item>
+        <item name="android:textColorPrimary">@color/desire</item>
+
     </style>
 
 </resources>

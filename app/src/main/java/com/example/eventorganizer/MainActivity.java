@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
        /* dbHelper.deleteEvents();
         dbHelper.deleteCategories();
 */
+        //dbHelper.deleteItems();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
