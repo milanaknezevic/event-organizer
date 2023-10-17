@@ -15,8 +15,10 @@
     <string name="search">Search...</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
-    <string name="location">Location</string>
-    <string name="time">HH:MM</string>
+    <string name="location">Pick location</string>
+    <string name="time">Pick time</string>
+    <string name="date">Pick date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

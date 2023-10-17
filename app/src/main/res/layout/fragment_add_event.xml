@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:ignore="MissingClass">
 
     <EditText
         android:id="@+id/name"
@@ -28,7 +30,7 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             android:id="@+id/pickDateEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,11 +39,12 @@
             android:drawableStart="@drawable/baseline_date_range_24"
             android:drawablePadding="8dp"
             android:focusable="false"
-            android:hint="Date"
+            android:gravity="center_vertical"
+            android:hint="@string/date"
             android:inputType="none"
             android:minHeight="48dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/pickTimeEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,21 +53,24 @@
             android:drawableStart="@drawable/time"
             android:drawablePadding="8dp"
             android:focusable="false"
-            android:hint="Time"
+            android:gravity="center_vertical"
+            android:hint="@string/time"
             android:inputType="none"
             android:minHeight="48dp" />
 
     </LinearLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/pickLocationEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:drawableStart="@drawable/round_edit_location_alt_24"
         android:drawablePadding="8dp"
-        android:hint="Lokacija"
+        android:gravity="center_vertical"
+        android:hint="@string/location"
         android:minHeight="48dp" />
+
 
     <Spinner
         android:id="@+id/category"
@@ -82,14 +88,11 @@
         android:contentDescription="+"
         android:src="@drawable/baseline_add_a_photo_24"
         android:tint="@android:color/white" />
-    <ImageView
-        android:id="@+id/imageView"
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/imageViewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:src="@android:drawable/ic_menu_gallery" />
-
-
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/Submit"

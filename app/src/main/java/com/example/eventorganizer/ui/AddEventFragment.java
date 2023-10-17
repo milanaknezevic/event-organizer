@@ -1,7 +1,9 @@
 package com.example.eventorganizer.ui;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,12 +31,12 @@ public class AddEventFragment extends Fragment {
     View root;
     ArrayAdapter<String> spinnerAdapter;
     private List<Category> categories = new ArrayList<>();
-    EditText editText;
-    private EditText pickDateEditText;
-    private EditText pickTimeEditText;
+    private TextView pickLocationEditText;
+    private TextView pickDateEditText;
+    private TextView pickTimeEditText;
     private Calendar calendar;
     private int year, month, day, hour, minute;
-    ImageView imageView;
+    private static final int REQUEST_LOCATION_SELECTION = 1;
 
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -60,6 +61,16 @@ public class AddEventFragment extends Fragment {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
 
+        pickLocationEditText = root.findViewById(R.id.pickLocationEditText);
+        pickLocationEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), MapsActivity.class);
+                startActivityForResult(intent, REQUEST_LOCATION_SELECTION);
+            }
+        });
+        pickLocationEditText.setFocusable(false);
+
         pickDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +90,7 @@ public class AddEventFragment extends Fragment {
                 String selectedCategoryName = (String) parentView.getItemAtPosition(position);
                 Toast.makeText(requireContext(), selectedCategoryName, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Ovo se poziva kada nema ničega selektovanog
@@ -130,6 +142,19 @@ public class AddEventFragment extends Fragment {
 
     private void updateTimeEditText() {
         pickTimeEditText.setText(hour + ":" + minute);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOCATION_SELECTION && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                String selectedLocationName = data.getStringExtra("selectedLocationName");
+                if (selectedLocationName != null) {
+                    pickLocationEditText.setText(selectedLocationName);
+                }
+            }
+        }
     }
 
 
