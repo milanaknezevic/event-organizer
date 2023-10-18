@@ -40,6 +40,7 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
         listView = root.findViewById(R.id.listEvents);
         addEvent=root.findViewById(R.id.addButton);
         searchView = root.findViewById(R.id.searchView);
+        //MainActivity.dbHelper.deleteEvents();
         events = MainActivity.dbHelper.getAllEvents();
         eventAdapter = new EventAdapter(events, this);
         listView.setAdapter(eventAdapter);
