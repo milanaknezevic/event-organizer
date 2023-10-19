@@ -10,6 +10,7 @@
 
     <string name="add_event">Add event</string>
     <string name="menu_event">Events</string>
+    <string name="delete_event">Delete event</string>
     <string name="activityAdded">Activity added successfully</string>
     <string name="menu_home">Home</string>
     <string name="menu_calendar">Calendar</string>
