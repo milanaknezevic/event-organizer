@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,17 +37,22 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.example.eventorganizer.MainActivity;
 import com.example.eventorganizer.R;
 import com.example.eventorganizer.enums.Category;
 import com.example.eventorganizer.model.entities.Event;
+import com.example.eventorganizer.model.entities.Image;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -97,28 +105,6 @@ public class AddEventFragment extends Fragment {
         descriptionEditText = root.findViewById(R.id.description);
 
 
-       /* startGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                Intent intent = result.getData();
-                if (intent != null) {
-                    ClipData selectedImages = intent.getClipData();
-                    Uri selectedImage = intent.getData();
-
-                    if (selectedImages != null) {
-                        for (int i = 0; i < selectedImages.getItemCount(); i++) {
-                            Uri imageUri = selectedImages.getItemAt(i).getUri();
-                            // Dodaj odabranu sliku u carousel
-                            imageViewPager.addData(new CarouselItem(imageUri.toString()));
-                        }
-                    } else if (selectedImage != null) {
-                        // Dodaj odabranu sliku u carousel
-                        imageViewPager.addData(new CarouselItem(selectedImage.toString()));
-                    }
-                }
-            }
-        });*/
-
-
         submit = root.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +118,20 @@ public class AddEventFragment extends Fragment {
                     String location = pickLocationEditText.getText().toString();
                     Category category = Category.valueOf(selectedCategoryName);
                     String dateTime = date + " " + time;
-                    if(numberOfImages ==0)
-                    {
-                        //dodaj samo event
-                        MainActivity.dbHelper.insertEvent(new Event(name,description,dateTime,location,category));
-                    }else{
-                        //dodaj i slike
+                    long eventId = MainActivity.dbHelper.insertEvent(new Event(name, description, dateTime, location, category));
+                    if (numberOfImages > 0 && category.equals(Category.LEISURE)) {
+
+                        for (CarouselItem item : imageViewPager.getData()) {
+                            String url = item.getImageUrl();
+                            Bitmap bitmap = loadImageFromUri(url, getContext());
+                            if (bitmap != null) {
+                                String path = saveBitmapToFile(bitmap, getContext());
+                                Image image = new Image();
+                                image.setImage_url(path);
+                                image.setEvent_id((int) eventId);
+                                MainActivity.dbHelper.insertImage(image);
+                            }
+                        }
                     }
                     nameEditText.setText("");
                     descriptionEditText.setText("");
@@ -148,7 +142,7 @@ public class AddEventFragment extends Fragment {
                     //imageViewPager.removeAllData(); // Očisti slike iz Carousel-a
                     numberOfImages = 0;
 
-                   Toast.makeText(requireContext(), getString(R.string.activityAdded), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.activityAdded), Toast.LENGTH_SHORT).show();
                     //requireActivity().finish();
                     fragmentManager.popBackStack();
 
@@ -196,7 +190,7 @@ public class AddEventFragment extends Fragment {
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                 selectedCategoryName = (String) parentView.getItemAtPosition(position);
+                selectedCategoryName = (String) parentView.getItemAtPosition(position);
 
                 if (selectedCategoryName.equals(Category.LEISURE.name())) {
                     addPhotoButton.setVisibility(View.VISIBLE);
@@ -216,6 +210,7 @@ public class AddEventFragment extends Fragment {
 
         return root;
     }
+
 
     private void showImageSelectionOptions() {
         CharSequence[] options = {"Use Camera", "Upload from Gallery", "Upload from Internet"};
@@ -449,5 +444,41 @@ public class AddEventFragment extends Fragment {
         return true;
     }
 
+    public Bitmap loadImageFromUri(String imageUrl, Context context) {
+        try {
+            if (imageUrl.startsWith("https")) {
+                Bitmap bitmap = Glide.with(context)
+                        .asBitmap()
+                        .load(imageUrl)
+                        .submit()
+                        .get();
+                return bitmap;
+            } else {
+                Uri uri = Uri.parse(imageUrl);
+                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                return BitmapFactory.decodeStream(inputStream, null, options);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+
+    public String saveBitmapToFile(Bitmap bitmap, Context context) {
+
+        File file = new File(context.getFilesDir(), System.currentTimeMillis() + ".jpg");
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

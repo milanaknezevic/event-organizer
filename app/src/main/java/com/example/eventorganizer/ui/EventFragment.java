@@ -9,17 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
+import com.example.eventorganizer.MainActivity;
 import com.example.eventorganizer.R;
 import com.example.eventorganizer.enums.Category;
 import com.example.eventorganizer.model.entities.Event;
+import com.example.eventorganizer.model.entities.Image;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +40,7 @@ public class EventFragment extends Fragment {
     private TextView dateTextView;
     private String location;
     private Category category;
+    private ImageCarousel carousel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +56,23 @@ public class EventFragment extends Fragment {
         mapView = root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         location = event.getLocation();
-        category=event.getCategory();
+        category = event.getCategory();
+        carousel = root.findViewById(R.id.event_carousel);
+        String selectedCategoryName = String.valueOf(category);
+
+        List<Image> images = MainActivity.dbHelper.getAllImagesForEvent(event.getId());
+
+        if (selectedCategoryName.equals(Category.LEISURE.name())) {
+            carousel.setVisibility(View.VISIBLE);
+            for(Image image:images)
+            {
+                carousel.addData(new CarouselItem(image.getImage_url()));
+            }
+        } else {
+
+            carousel.setVisibility(View.GONE);
+        }
+
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override

@@ -62,15 +62,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     }
-    public void deleteItems()
-    {
+
+    public void deleteItems() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String delete = "DROP TABLE IF EXISTS "+TABLE_NAME_IMAGE;
+        String delete = "DROP TABLE IF EXISTS " + TABLE_NAME_IMAGE;
         db.execSQL(delete);
 
 
         SQLiteDatabase db2 = this.getWritableDatabase();
-        String delete2 = "DROP TABLE IF EXISTS "+TABLE_NAME_EVENT;
+        String delete2 = "DROP TABLE IF EXISTS " + TABLE_NAME_EVENT;
         db.execSQL(delete2);
     }
 
@@ -113,7 +113,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //event insert update delete,getAll
-    public void insertEvent(Event event) {
+    public long insertEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EVENT_NAME, event.getName());
@@ -124,6 +124,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long eventId = db.insert(TABLE_NAME_EVENT, null, values);
         event.setId((int) eventId);
         db.close();
+        return eventId;
     }
 
     public void updateEvent(Event event) {
@@ -143,24 +144,19 @@ public class DBHelper extends SQLiteOpenHelper {
         int rowsDeleted = db.delete(TABLE_NAME_EVENT, ID_COL + " = " + eventId, null);
         db.close();
     }
+
     public void deleteEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete(TABLE_NAME_EVENT, null, null);
         db.close();
     }
 
+
     @SuppressLint("Range")
     public List<Event> getAllEvents() {
-
-
-      /*Event e=new Event("event1","description1","time","location",Category.LEISURE);
-        insertEvent(e);
-        Event e1=new Event("event2","description1","time","location",Category.TRAVEL);
-        insertEvent(e1);
-*/
         List<Event> events = new LinkedList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME_EVENT, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME_EVENT + " ORDER BY TIME ASC", null);
         res.moveToFirst();
         while (!res.isAfterLast()) {
             Event eventTmp = new Event();
@@ -181,9 +177,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return events;
     }
 
+
+
     @SuppressLint("Range")
-    public List<Event> searchEventsByName(String eventName)
-    {
+    public List<Event> searchEventsByName(String eventName) {
         List<Event> events = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_NAME_EVENT + " WHERE " + EVENT_NAME + " LIKE ?";
