@@ -15,6 +15,7 @@
     <dimen name="itemMargin">16dp</dimen>
 
     <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
     <dimen name="corner_radius">16dp</dimen>
     <dimen name="stroke_width">3dp</dimen>
     <dimen name="dp_4">4dp</dimen>
