@@ -128,12 +128,14 @@ public class AddEventFragment extends Fragment {
                     String description = descriptionEditText.getText().toString();
                     String date = pickDateEditText.getText().toString();
                     String time = pickTimeEditText.getText().toString();
+
                     String location = pickLocationEditText.getText().toString();
                     Category category = Category.valueOf(selectedCategoryName);
+                    String dateTime = date + " " + time;
                     if(numberOfImages ==0)
                     {
                         //dodaj samo event
-                        MainActivity.dbHelper.insertEvent(new Event(name,description,time,location,category));
+                        MainActivity.dbHelper.insertEvent(new Event(name,description,dateTime,location,category));
                     }else{
                         //dodaj i slike
                     }
@@ -266,22 +268,23 @@ public class AddEventFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-                hour = selectedHour;
-                minute = selectedMinute;
-                updateTimeEditText();
+                // Formatirajte sate i minute tako da uvek budu sa dve cifre
+                String formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute);
+                updateTimeEditText(formattedTime);
             }
         }, hour, minute, true);
         timePickerDialog.show();
     }
+
 
     private void updateDateEditText() {
         pickDateEditText.setText(year + "-" + (month + 1) + "-" + day);
         pickDateEditText.setError(null);
     }
 
-    private void updateTimeEditText() {
+    private void updateTimeEditText(String time) {
 
-        pickTimeEditText.setText(hour + ":" + minute);
+        pickTimeEditText.setText(time);
         pickDateEditText.setError(null);
     }
 
@@ -414,6 +417,7 @@ public class AddEventFragment extends Fragment {
         String description = descriptionEditText.getText().toString();
         String date = pickDateEditText.getText().toString();
         String time = pickTimeEditText.getText().toString();
+
         String location = pickLocationEditText.getText().toString();
 
         if (name.isEmpty()) {

@@ -59,13 +59,14 @@ public class EventAdapter extends BaseAdapter {
 
 
         TextView title = view.findViewById(R.id.event_name);
-        TextView datetime = view.findViewById(R.id.event_time);
+        TextView time = view.findViewById(R.id.event_time);
         TextView location = view.findViewById(R.id.event_location);
         TextView category = view.findViewById(R.id.event_category);
 
 
         title.setText(event.getName());
-        datetime.setText(event.getTime());
+
+        time.setText(event.getTime());
         location.setText(event.getLocation());
 
         category.setText(String.valueOf(event.getCategory()));
