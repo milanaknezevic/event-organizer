@@ -138,12 +138,11 @@ public class AddEventFragment extends Fragment {
                     pickDateEditText.setText("");
                     pickTimeEditText.setText("");
                     pickLocationEditText.setText("");
-                    categorySpinner.setSelection(0); // Postavi odabrani element na prvi u spinneru
-                    //imageViewPager.removeAllData(); // Očisti slike iz Carousel-a
+                    categorySpinner.setSelection(0);
                     numberOfImages = 0;
 
                     Toast.makeText(requireContext(), getString(R.string.activityAdded), Toast.LENGTH_SHORT).show();
-                    //requireActivity().finish();
+
                     fragmentManager.popBackStack();
 
                 }

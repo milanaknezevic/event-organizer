@@ -1,14 +1,19 @@
 package com.example.eventorganizer.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import com.example.eventorganizer.R;
+
+import java.util.Calendar;
 
 
 public class CalendarFragment extends Fragment {
@@ -18,16 +23,21 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root =inflater.inflate(R.layout.fragment_calendar, container, false);
+        View root = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-       /* root.findViewById(R.id.button_home).setOnClickListener(new View.OnClickListener(){
+        CalendarView calendarView = root.findViewById(R.id.calendarView);
 
+
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(root).navigate(R.id.action_nav_home_to_nav_events);
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+
+                //calendarView.setDateTextAppearance(R.style.DatePickerTheme); ne funkcionise
             }
-        });*/
+        });
 
         return root;
     }
+
 }
