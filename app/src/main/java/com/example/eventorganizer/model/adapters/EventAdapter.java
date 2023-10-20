@@ -73,4 +73,6 @@ public class EventAdapter extends BaseAdapter {
 
         return view;
     }
+
+
 }

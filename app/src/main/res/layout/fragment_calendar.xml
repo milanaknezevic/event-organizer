@@ -19,12 +19,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/noEvents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/no_events" />
+        android:text="@string/no_events"
+        android:textAlignment="center" />
+
+    <ListView
+        android:id="@+id/listEventsByDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@null"></ListView>
 
 
 </LinearLayout>

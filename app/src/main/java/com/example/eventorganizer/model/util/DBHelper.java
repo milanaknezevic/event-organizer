@@ -206,5 +206,28 @@ public class DBHelper extends SQLiteOpenHelper {
         return events;
     }
 
+    @SuppressLint("Range")
+    public List<Event> getAllEventsByDate(String date) {
+        List<Event> events = new LinkedList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME_EVENT + " WHERE " + TIME + " LIKE ? ORDER BY " + TIME + " ASC", new String[] { date + "%" });
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            Event eventTmp = new Event();
+            eventTmp.setId(res.getInt(res.getColumnIndex(ID_COL)));
+            eventTmp.setName(res.getString(res.getColumnIndex(EVENT_NAME)));
+            eventTmp.setDescription(res.getString(res.getColumnIndex(DESCRIPTION)));
+            eventTmp.setTime(res.getString(res.getColumnIndex(TIME)));
+            eventTmp.setLocation(res.getString(res.getColumnIndex(LOCATION)));
+            eventTmp.setCategory(Category.valueOf(res.getString(res.getColumnIndex(CATEGORY))));
 
+            List<Image> images = getAllImagesForEvent(eventTmp.getId());
+            eventTmp.setImages(images);
+
+            events.add(eventTmp);
+            res.moveToNext();
+        }
+        res.close();
+        return events;
+    }
 }

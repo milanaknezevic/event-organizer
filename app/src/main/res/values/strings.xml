@@ -9,6 +9,8 @@
 
 
     <string name="add_event">Add event</string>
+    <string name="submit">Submit</string>
+    <string name="event_details">Event details</string>
     <string name="menu_event">Events</string>
     <string name="delete_event">Delete event</string>
     <string name="activityAdded">Activity added successfully.</string>
@@ -21,8 +23,26 @@
     <string name="description">Description</string>
     <string name="location">Pick location</string>
     <string name="time">Pick time</string>
+
     <string name="date">Pick date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+
+
+    <string name="languages">Languages</string>
+    <string name="default_language" translatable="false">en</string>
+    <string name="notifications_off">Off</string>
+    <string name="notifications_hour_before">Hour before</string>
+    <string name="notifications_day_before">Day before</string>
+    <string name="notifications_week_before">Week before</string>
+    <string name="language_key" translatable="false">language</string>
+    <string name="language_title">Choose language</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_default" translatable="false">2</string>
+    <string name="notification_key" translatable="false">notification</string>
+    <string name="notification_period">Notification period</string>
+
+
 </resources>

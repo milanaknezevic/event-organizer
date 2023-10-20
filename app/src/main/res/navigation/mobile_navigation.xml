@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_nav_calendar_to_nav_settings"
             app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/action_nav_calendar_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
 
     <fragment
@@ -50,11 +53,14 @@
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.example.eventorganizer.ui.EventFragment"
-        android:label="Event details"
+        android:label="@string/event_details"
         tools:layout="@layout/fragment_event" >
         <action
             android:id="@+id/action_eventFragment_to_nav_events"
             app:destination="@id/nav_events" />
+        <action
+            android:id="@+id/action_eventFragment_to_nav_calendar"
+            app:destination="@id/nav_calendar" />
     </fragment>
     <fragment
         android:id="@+id/addEventFragment"

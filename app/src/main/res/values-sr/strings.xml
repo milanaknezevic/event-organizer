@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">EventOrganizer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Podesavanja</string>
+    <string name="submit">Potvrdi</string>
+    <string name="event_details">Detalji o dogadjaju</string>
+
+
+    <string name="add_event">Dodaj dogadjaj</string>
+    <string name="menu_event">Dogadjaji</string>
+    <string name="delete_event">Obrisi dogadjaj</string>
+    <string name="activityAdded">Dogadjaj je uspjesno dodan.</string>
+    <string name="menu_home">Pocetna</string>
+    <string name="menu_calendar">Kalendar</string>
+    <string name="no_events">Nema dogadjaja.</string>
+    <string name="menu_settings">Podesavanja</string>
+    <string name="search">Pretrazi...</string>
+    <string name="name">Naziv</string>
+    <string name="description">Opis</string>
+    <string name="location">Odaberi lokaciju</string>
+    <string name="time">Odaberi vrijeme</string>
+    <string name="date">Odaberi datum</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+
+
+    <string name="languages">Jezici</string>
+    <string name="default_language" translatable="false">en</string>
+    <string name="notifications_off">Iskljuceno</string>
+    <string name="notifications_hour_before">Sat prije</string>
+    <string name="notifications_day_before">Dan prije</string>
+    <string name="notifications_week_before">Sedmica prije</string>
+    <string name="language_key" translatable="false">language</string>
+    <string name="language_title">Izaberi jezik</string>
+    <string name="notifications">Notifikacije</string>
+    <string name="notification_default" translatable="false">2</string>
+    <string name="notification_key" translatable="false">notification</string>
+    <string name="notification_period">Period notifikacije</string>
+
+
+</resources>
