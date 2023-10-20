@@ -230,4 +230,32 @@ public class DBHelper extends SQLiteOpenHelper {
         res.close();
         return events;
     }
+
+    @SuppressLint("Range")
+    public List<Event> getUpcomingEvents(String from, String to) {
+        List<Event> events = new LinkedList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EVENT + " WHERE " + TIME + " >= ? AND " + TIME + " < ?";
+        String[] selectionArgs = {from, to};
+        Cursor res = db.rawQuery(selectQuery, selectionArgs);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            Event eventTmp = new Event();
+            eventTmp.setId(res.getInt(res.getColumnIndex(ID_COL)));
+            eventTmp.setName(res.getString(res.getColumnIndex(EVENT_NAME)));
+            eventTmp.setDescription(res.getString(res.getColumnIndex(DESCRIPTION)));
+            eventTmp.setTime(res.getString(res.getColumnIndex(TIME)));
+            eventTmp.setLocation(res.getString(res.getColumnIndex(LOCATION)));
+            eventTmp.setCategory(Category.valueOf(res.getString(res.getColumnIndex(CATEGORY))));
+
+            List<Image> images = getAllImagesForEvent(eventTmp.getId());
+            eventTmp.setImages(images);
+
+            events.add(eventTmp);
+            res.moveToNext();
+        }
+        res.close();
+        return events;
+    }
+
 }

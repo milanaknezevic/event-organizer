@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.example.eventorganizer.MainActivity;
 import com.example.eventorganizer.R;
 import com.example.eventorganizer.enums.Category;
@@ -212,9 +211,11 @@ public class AddEventFragment extends Fragment {
 
 
     private void showImageSelectionOptions() {
-        CharSequence[] options = {"Use Camera", "Upload from Gallery", "Upload from Internet"};
+        CharSequence[] options = getResources().getStringArray(R.array.image_selection_options);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Select an option");
+        builder.setTitle(R.string.select_option_title);
+
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {

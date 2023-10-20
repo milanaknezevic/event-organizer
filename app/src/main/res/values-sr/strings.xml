@@ -43,5 +43,9 @@
     <string name="notification_key" translatable="false">notification</string>
     <string name="notification_period">Period notifikacije</string>
 
+    <string name="use_camera">Koristi kameru</string>
+    <string name="upload_from_galery">Dodaj iz galerije</string>
+    <string name="upload_from_internet">Dodaj sa interneta</string>
+    <string name="select_option_title">Izaberite opciju</string>
 
 </resources>

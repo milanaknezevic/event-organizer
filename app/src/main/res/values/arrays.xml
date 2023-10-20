@@ -27,6 +27,11 @@
     </string-array>
 
 
+    <array name="image_selection_options">
+        <item>@string/use_camera</item>
+        <item>@string/upload_from_galery</item>
+        <item>@string/upload_from_internet</item>
+    </array>
 
 
 

@@ -44,5 +44,10 @@
     <string name="notification_key" translatable="false">notification</string>
     <string name="notification_period">Notification period</string>
 
+    <string name="use_camera">Use Camera</string>
+    <string name="upload_from_galery">Upload from Gallery</string>
+    <string name="upload_from_internet">Upload from Internet</string>
+    <string name="select_option_title">Select an option</string>
+
 
 </resources>
