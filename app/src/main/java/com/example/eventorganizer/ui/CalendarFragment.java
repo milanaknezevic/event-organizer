@@ -31,6 +31,7 @@ public class CalendarFragment extends Fragment implements AdapterView.OnItemClic
     private View root;
     private List<Event> events = new ArrayList<>();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,7 +65,12 @@ public class CalendarFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void showEventsForDate(int year, int month, int dayOfMonth) {
-        String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+        //String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+        String formattedYear = String.valueOf(year);
+        String formattedMonth = String.format("%02d", month + 1);
+        String formattedDay = String.format("%02d", dayOfMonth);
+
+        String selectedDate = formattedYear + "-" + formattedMonth + "-" + formattedDay;
         events = MainActivity.dbHelper.getAllEventsByDate(selectedDate);
 
         if (events.size() > 0) {

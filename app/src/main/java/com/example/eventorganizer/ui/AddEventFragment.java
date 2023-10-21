@@ -275,9 +275,15 @@ public class AddEventFragment extends Fragment {
 
 
     private void updateDateEditText() {
-        pickDateEditText.setText(year + "-" + (month + 1) + "-" + day);
+        String formattedYear = String.valueOf(year);
+        String formattedMonth = String.format("%02d", month + 1);
+        String formattedDay = String.format("%02d", day);
+
+        String formattedDate = formattedYear + "-" + formattedMonth + "-" + formattedDay;
+        pickDateEditText.setText(formattedDate);
         pickDateEditText.setError(null);
     }
+
 
     private void updateTimeEditText(String time) {
 

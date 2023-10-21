@@ -1,6 +1,7 @@
 package com.example.eventorganizer.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,11 +39,12 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
 
         root = inflater.inflate(R.layout.fragment_events, container, false);
         listView = root.findViewById(R.id.list_events);
-        addEvent=root.findViewById(R.id.addButton);
+        addEvent = root.findViewById(R.id.addButton);
         searchView = root.findViewById(R.id.search);
         //MainActivity.dbHelper.deleteEvents();
         events = MainActivity.dbHelper.getAllEvents();
         eventAdapter = new EventAdapter(events, this);
+        Log.d("events:", events.toString());
         listView.setAdapter(eventAdapter);
 
 
@@ -62,8 +64,16 @@ public class EventsFragment extends Fragment implements AdapterView.OnItemClickL
 
             @Override
             public boolean onQueryTextChange(String s) {
-                List<Event> e = MainActivity.dbHelper.searchEventsByName(s);
-                eventAdapter.setData(e);
+
+                List<Event> evs = MainActivity.dbHelper.getAllEvents();
+                if (!("".equals(s))) {
+                    List<Event> e = MainActivity.dbHelper.searchEventsByName(s);
+                    eventAdapter.setData(e);
+                }
+                else
+                {
+                    eventAdapter.setData(evs);
+                }
                 return true;
             }
         });
