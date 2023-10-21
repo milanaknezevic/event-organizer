@@ -14,7 +14,7 @@
 
 
         <CalendarView
-            android:id="@+id/calendarView"
+            android:id="@+id/calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -27,14 +27,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/noEvents"
+            android:id="@+id/no_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/no_events"
             android:textAlignment="center" />
 
         <ListView
-            android:id="@+id/listEventsByDate"
+            android:id="@+id/list_events_by_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:divider="@null"></ListView>

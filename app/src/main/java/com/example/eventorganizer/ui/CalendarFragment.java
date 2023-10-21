@@ -36,9 +36,9 @@ public class CalendarFragment extends Fragment implements AdapterView.OnItemClic
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        calendarView = root.findViewById(R.id.calendarView);
-        noEventsTextView = root.findViewById(R.id.noEvents);
-        listView = root.findViewById(R.id.listEventsByDate);
+        calendarView = root.findViewById(R.id.calendar);
+        noEventsTextView = root.findViewById(R.id.no_events);
+        listView = root.findViewById(R.id.list_events_by_date);
         eventAdapter = new EventAdapter(events, this);
 
 

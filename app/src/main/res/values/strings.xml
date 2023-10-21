@@ -49,6 +49,17 @@
     <string name="upload_from_galery">Upload from Gallery</string>
     <string name="upload_from_internet">Upload from Internet</string>
     <string name="select_option_title">Select an option</string>
+    <string name="enter_image_url">Enter Image URL</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="name_required">Name is required!</string>
+    <string name="description_required">Description is required!</string>
+    <string name="date_required">Date is required!</string>
+    <string name="time_required">Time is required!</string>
+    <string name="location_required">Location is required!</string>
+    <string name="save">SAVE</string>
+
+
 
 
 </resources>

@@ -7,11 +7,11 @@
     tools:context=".ui.EventsFragment">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_8"
-        app:layout_constraintBottom_toTopOf="@+id/listEvents"
+        app:layout_constraintBottom_toTopOf="@+id/list_events"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
 
 
     <ListView
-        android:id="@+id/listEvents"
+        android:id="@+id/list_events"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:divider="@null"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView" >
+        app:layout_constraintTop_toBottomOf="@id/search" >
 
     </ListView>
     <androidx.constraintlayout.widget.Guideline

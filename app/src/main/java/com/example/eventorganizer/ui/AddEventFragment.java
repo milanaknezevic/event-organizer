@@ -99,8 +99,8 @@ public class AddEventFragment extends Fragment {
         spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, getSpinnerDataAsNames());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(spinnerAdapter);
-        pickDateEditText = root.findViewById(R.id.pickDateEditText);
-        pickTimeEditText = root.findViewById(R.id.pickTimeEditText);
+        pickDateEditText = root.findViewById(R.id.pick_date);
+        pickTimeEditText = root.findViewById(R.id.pick_time);
         nameEditText = root.findViewById(R.id.name);
         descriptionEditText = root.findViewById(R.id.description);
 
@@ -142,8 +142,6 @@ public class AddEventFragment extends Fragment {
                     numberOfImages = 0;
 
                     Toast.makeText(requireContext(), getString(R.string.activityAdded), Toast.LENGTH_SHORT).show();
-
-                    //fragmentManager.popBackStack();
                     Navigation.findNavController(root).navigate(R.id.action_addEventFragment_to_nav_events);
 
                 }
@@ -155,7 +153,7 @@ public class AddEventFragment extends Fragment {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        addPhotoButton = root.findViewById(R.id.addPhotoButton);
+        addPhotoButton = root.findViewById(R.id.add_photo);
         imageViewPager = root.findViewById(R.id.carousel);
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +161,7 @@ public class AddEventFragment extends Fragment {
                 showImageSelectionOptions();
             }
         });
-        pickLocationEditText = root.findViewById(R.id.pickLocationEditText);
+        pickLocationEditText = root.findViewById(R.id.pick_location);
         pickLocationEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,9 +238,12 @@ public class AddEventFragment extends Fragment {
     private List<String> getSpinnerDataAsNames() {
 
         List<String> categoryNames = new ArrayList<>();
-        categoryNames.add(Category.TRAVEL.name());
+       categoryNames.add(Category.TRAVEL.name());
         categoryNames.add(Category.WORK.name());
         categoryNames.add(Category.LEISURE.name());
+       /* categoryNames.add(getString(R.string.work));
+        categoryNames.add(getString(R.string.travel));
+        categoryNames.add(getString(R.string.leisure));*/
         List<String> c = new ArrayList<>();
         return categoryNames;
     }
@@ -265,7 +266,6 @@ public class AddEventFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-                // Formatirajte sate i minute tako da uvek budu sa dve cifre
                 String formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute);
                 updateTimeEditText(formattedTime);
             }
@@ -298,7 +298,6 @@ public class AddEventFragment extends Fragment {
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             if (photoUri != null) {
-                // Dodaj sliku u carousel
                 imageViewPager.addData(new CarouselItem(photoUri.toString()));
                 numberOfImages++;
             }
@@ -310,12 +309,10 @@ public class AddEventFragment extends Fragment {
                 if (selectedImages != null) {
                     for (int i = 0; i < selectedImages.getItemCount(); i++) {
                         Uri imageUri = selectedImages.getItemAt(i).getUri();
-                        // Dodaj odabranu sliku u carousel
                         imageViewPager.addData(new CarouselItem(imageUri.toString()));
                         numberOfImages++;
                     }
                 } else if (selectedImage != null) {
-                    // Dodaj odabranu sliku u carousel
                     imageViewPager.addData(new CarouselItem(selectedImage.toString()));
                     numberOfImages++;
                 }
@@ -326,13 +323,14 @@ public class AddEventFragment extends Fragment {
 
     private void showInternetImageDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Enter Image URL");
+        builder.setTitle(R.string.enter_image_url);
+        //builder.setTitle("Enter Image URL");
 
         final EditText input = new EditText(requireContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String imageUrl = input.getText().toString();
@@ -342,7 +340,7 @@ public class AddEventFragment extends Fragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -392,23 +390,23 @@ public class AddEventFragment extends Fragment {
             File imageFile = File.createTempFile(imageFileName, ".jpg", storageDir);
             return imageFile;
         } catch (IOException e) {
-            // Handle file creation error
-            return null; // ili neku drugu grešku
+
+            return null;
         }
     }
 
 
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY); // Use REQUEST_IMAGE_GALLERY
+        startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY);
     }
 
     private boolean validateFields() {
         EditText nameEditText = root.findViewById(R.id.name);
         EditText descriptionEditText = root.findViewById(R.id.description);
-        TextView pickDateEditText = root.findViewById(R.id.pickDateEditText);
-        TextView pickTimeEditText = root.findViewById(R.id.pickTimeEditText);
-        TextView pickLocationEditText = root.findViewById(R.id.pickLocationEditText);
+        TextView pickDateEditText = root.findViewById(R.id.pick_date);
+        TextView pickTimeEditText = root.findViewById(R.id.pick_time);
+        TextView pickLocationEditText = root.findViewById(R.id.pick_location);
 
         String name = nameEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
@@ -418,29 +416,30 @@ public class AddEventFragment extends Fragment {
         String location = pickLocationEditText.getText().toString();
 
         if (name.isEmpty()) {
-            nameEditText.setError("Name is required");
+            nameEditText.setError(getString(R.string.name_required));
             return false;
         }
 
         if (description.isEmpty()) {
-            descriptionEditText.setError("Description is required");
+            descriptionEditText.setError(getString(R.string.description_required));
             return false;
         }
 
         if (date.isEmpty()) {
-            pickDateEditText.setError("Date is required");
+            pickDateEditText.setError(getString(R.string.date_required));
             return false;
         }
 
         if (time.isEmpty()) {
-            pickTimeEditText.setError("Time is required");
+            pickTimeEditText.setError(getString(R.string.time_required));
             return false;
         }
 
         if (location.isEmpty()) {
-            pickLocationEditText.setError("Location is required");
+            pickLocationEditText.setError(getString(R.string.location_required));
             return false;
         }
+
 
 
         return true;

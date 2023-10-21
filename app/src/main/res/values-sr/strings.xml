@@ -5,20 +5,20 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Podesavanja</string>
+    <string name="action_settings">Podešavanja</string>
     <string name="submit">Potvrdi</string>
-    <string name="event_details">Detalji o dogadjaju</string>
+    <string name="event_details">Detalji o događaju</string>
 
 
-    <string name="add_event">Dodaj dogadjaj</string>
-    <string name="menu_event">Dogadjaji</string>
-    <string name="delete_event">Obrisi dogadjaj</string>
-    <string name="activityAdded">Dogadjaj je uspjesno dodan.</string>
-    <string name="menu_home">Pocetna</string>
+    <string name="add_event">Dodaj događaj</string>
+    <string name="menu_event">Događaji</string>
+    <string name="delete_event">Obriši događaj</string>
+    <string name="activityAdded">Događaj je uspješno dodan.</string>
+    <string name="menu_home">Početna</string>
     <string name="menu_calendar">Kalendar</string>
-    <string name="no_events">Nema dogadjaja.</string>
-    <string name="menu_settings">Podesavanja</string>
-    <string name="search">Pretrazi...</string>
+    <string name="no_events">Nema događaja.</string>
+    <string name="menu_settings">Podešavanja</string>
+    <string name="search">Pretraži...</string>
     <string name="name">Naziv</string>
     <string name="description">Opis</string>
     <string name="location">Odaberi lokaciju</string>
@@ -27,13 +27,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="eventDeleted">Dogadjaj je uspjenso obrisan.</string>
+    <string name="eventDeleted">Događaj je uspješno obrisan.</string>
 
 
 
     <string name="languages">Jezici</string>
     <string name="default_language" translatable="false">en</string>
-    <string name="notifications_off">Iskljuceno</string>
+    <string name="notifications_off">Isključeno</string>
     <string name="notifications_hour_before">Sat prije</string>
     <string name="notifications_day_before">Dan prije</string>
     <string name="notifications_week_before">Sedmica prije</string>
@@ -48,5 +48,13 @@
     <string name="upload_from_galery">Dodaj iz galerije</string>
     <string name="upload_from_internet">Dodaj sa interneta</string>
     <string name="select_option_title">Izaberite opciju</string>
-
+    <string name="enter_image_url">Unesite URL slike</string>
+    <string name="ok">OK</string>
+    <string name="cancel">OTKAžI</string>
+    <string name="name_required">Naziv je obavezan!</string>
+    <string name="description_required">Opis je obavezan!</string>
+    <string name="date_required">Datum je obavezan!</string>
+    <string name="time_required">Vrijeme je obavezno!</string>
+    <string name="location_required">Lokacija je obavezna!</string>
+    <string name="save">SAČUVAJ</string>
 </resources>

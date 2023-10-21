@@ -28,7 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         return true;
     }
 
-    private void setLocale(String language, Context context) {
+    private void setLanguage(String language, Context context) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = context.getResources().getConfiguration();
@@ -44,6 +44,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 "language",
                 context.getResources().getString(R.string.default_language)
         );
-       setLocale(language, context);
+       setLanguage(language, context);
     }
 }
