@@ -7,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import com.example.eventorganizer.MainActivity;
 import com.example.eventorganizer.R;
@@ -21,6 +25,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
@@ -41,10 +46,13 @@ public class EventFragment extends Fragment {
     private String location;
     private Category category;
     private ImageCarousel carousel;
+    private FloatingActionButton deleteButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_event, container, false);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
         eventNameTextView = root.findViewById(R.id.event_name);
         eventNameTextView.setText(event.getName());
         eventCategoryTextView = root.findViewById(R.id.event_category_name);
@@ -59,6 +67,21 @@ public class EventFragment extends Fragment {
         category = event.getCategory();
         carousel = root.findViewById(R.id.event_carousel);
         String selectedCategoryName = String.valueOf(category);
+        deleteButton=root.findViewById(R.id.delete_event);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (event != null) {
+                    MainActivity.dbHelper.deleteEvent(event.getId());
+
+                    Toast.makeText(requireContext(), getString(R.string.eventDeleted), Toast.LENGTH_SHORT).show();
+
+                    Navigation.findNavController(root).navigate(R.id.action_eventFragment_to_nav_events);
+                }
+            }
+        });
+
+
 
         List<Image> images = MainActivity.dbHelper.getAllImagesForEvent(event.getId());
 
@@ -118,6 +141,8 @@ public class EventFragment extends Fragment {
                 .title("Lokacija")
                 .snippet(location));
     }
+
+
 
     @Override
     public void onResume() {

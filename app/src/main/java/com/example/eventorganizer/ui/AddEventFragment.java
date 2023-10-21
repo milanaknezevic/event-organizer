@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.example.eventorganizer.MainActivity;
@@ -142,7 +143,8 @@ public class AddEventFragment extends Fragment {
 
                     Toast.makeText(requireContext(), getString(R.string.activityAdded), Toast.LENGTH_SHORT).show();
 
-                    fragmentManager.popBackStack();
+                    //fragmentManager.popBackStack();
+                    Navigation.findNavController(root).navigate(R.id.action_addEventFragment_to_nav_events);
 
                 }
             }
